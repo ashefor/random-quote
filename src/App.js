@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import quotes from './QuoteData'
 import './App.css';
+import RandomQuote from './RandomQuote'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      quote: quotes[2].quote,
+      author: quotes[2].author
+    }
+  }
+
+  getRandomQuote() {
+    const randomNumber = Math.floor(Math.random() * quotes.length);
+    return quotes[randomNumber]
+  }
+
+  shuffleQuotes(quotes) {
+    return quotes.sort(() => Math.random() - 0.5)
+  }
+
+  randomQuoteClickHandler = () =>{
+    const generatedRandomQuote = this.getRandomQuote();
+    this.setState({
+      quote: generatedRandomQuote.quote,
+      author: generatedRandomQuote.author
+    })
+    // this.shuffleQuotes(quotes)
+  }
+
+  getRandomColor() {
+    const randomColor = `rgb(
+      ${Math.floor(Math.random() * 155)},
+      ${Math.floor(Math.random() * 155)},
+      ${Math.floor(Math.random() * 155)}
+    )`
+    return randomColor
+  }
+  render() {
+    return (
+      <div className="App">
+        <RandomQuote displayColor={this.getRandomColor} randomQuote={this.randomQuoteClickHandler} {...this.state}/>
+      </div>
+    );
+  }
 }
 
 export default App;
