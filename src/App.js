@@ -6,9 +6,10 @@ import RandomQuote from './RandomQuote'
 class App extends Component {
   constructor() {
     super()
-    this.state = {
-      quote: quotes[2].quote,
-      author: quotes[2].author
+    const randomNumber = Math.floor(Math.random() * quotes.length);
+      this.state = {
+      quote: quotes[randomNumber].quote,
+      author: quotes[randomNumber].author
     }
   }
 
